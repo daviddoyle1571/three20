@@ -422,7 +422,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)restoreView:(NSDictionary*)state {
-  self.view;
+  [self view];
   TT_RELEASE_SAFELY(_initialRecipients);
   NSMutableArray* fields = [state objectForKey:@"fields"];
   for (NSInteger i = 0; i < fields.count; ++i) {
