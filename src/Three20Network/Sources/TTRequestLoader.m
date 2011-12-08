@@ -100,7 +100,8 @@ static const NSInteger kLoadMaxRetries = 2;
     // Strictly speaking, to be really conformant need to interpret %xx hex encoded entities.
     // The [NSString dataUsingEncoding] doesn't do that correctly, but most documents don't use that.
     // Skip for now.
-	_responseData = [[[dataSplit objectAtIndex:1] dataUsingEncoding:NSASCIIStringEncoding] retain];
+	_responseData = \
+    (NSMutableData*) [[[dataSplit objectAtIndex:1] dataUsingEncoding:NSASCIIStringEncoding] retain];
   } else {
     _responseData = [[NSData dataWithBase64EncodedString:[dataSplit objectAtIndex:1]] retain];
   }
@@ -176,6 +177,7 @@ static const NSInteger kLoadMaxRetries = 2;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)loadSynchronously:(NSURL*)URL {
+#ifndef __IPHONE_5_0
   // This method simulates an asynchronous network connection. If your delegate isn't being called
   // correctly, this would be the place to start tracing for errors.
   TTNetworkRequestStarted();
@@ -185,6 +187,7 @@ static const NSInteger kLoadMaxRetries = 2;
 
   NSHTTPURLResponse* response = nil;
   NSError* error = nil;
+
   NSData* data = [NSURLConnection
                   sendSynchronousRequest: URLRequest
                   returningResponse: &response
@@ -201,9 +204,11 @@ static const NSInteger kLoadMaxRetries = 2;
   } else {
     [self connection:nil didReceiveResponse:(NSHTTPURLResponse*)response];
     [self connection:nil didReceiveData:data];
-
     [self connectionDidFinishLoading:nil];
   }
+#else
+  // ???
+#endif
 }
 
 

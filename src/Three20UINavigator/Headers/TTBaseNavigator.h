@@ -24,6 +24,7 @@
 @class TTURLAction;
 @class TTURLMap;
 @class TTURLPattern;
+@class TTURLNavigatorPattern;
 
 /**
  * A URL-based navigation system with built-in persistence.
@@ -222,8 +223,9 @@
  *
  * @return The view controller mapped to URL.
  */
-- (UIViewController*)viewControllerForURL:(NSString*)URL query:(NSDictionary*)query
-                                  pattern:(TTURLPattern**)pattern;
+- (UIViewController*)viewControllerForURL: (NSString*)URL
+                                    query: (NSDictionary*)query
+                                  pattern: (TTURLNavigatorPattern**)pattern;
 
 /**
  * Tells the navigator to delay heavy operations.
