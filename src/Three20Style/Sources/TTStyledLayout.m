@@ -623,8 +623,12 @@
     ? [[TTStyleSheet globalStyleSheet] styleWithSelector:imageNode.className] : nil;
   TTBoxStyle* padding = style ? [style firstStyleOfClass:[TTBoxStyle class]] : nil;
 
-  CGFloat imageWidth = imageNode.width ? imageNode.width : image.size.width;
-  CGFloat imageHeight = imageNode.height ? imageNode.height : image.size.height;
+  CGSize imgSize = CGSizeZero;
+  if (image) {
+    imgSize = image.size;
+  }
+  CGFloat imageWidth = imageNode.width ? imageNode.width : imgSize.width;
+  CGFloat imageHeight = imageNode.height ? imageNode.height : imgSize.height;
   CGFloat contentWidth = imageWidth;
   CGFloat contentHeight = imageHeight;
 
@@ -819,6 +823,7 @@
         [self addFrameForText:line element:element node:textNode width:frameWidth
               height:[_font ttLineHeight]];
         frameWidth = 0;
+        frameWidth = frameWidth;
       }
     }
   }
